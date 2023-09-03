@@ -1,8 +1,9 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, nanoid, type PayloadAction } from "@reduxjs/toolkit";
 import { createAppAsyncThunk } from "@/lib/redux/createAppAsyncThunk";
+import { ITodo } from "@/types";
 
 const initialState: TodoSliceState = {
-  todos: [{ task: "Initial Task", completed: false }],
+  todos: [{ id: nanoid(), task: "Initial Task", completed: false }],
   status: "idle",
 };
 
@@ -22,10 +23,23 @@ export const addTodo = createAppAsyncThunk(
   }
 );
 
+const searchTodo = (todos: ITodo[], id: string) => {
+  return todos.findIndex((todo) => todo.id === id);
+};
+
 export const todoSlice = createSlice({
   name: "todo",
   initialState,
-  reducers: {},
+  reducers: {
+    toggleTodo: (state, action: PayloadAction<string>) => {
+      const todoIdx = searchTodo(state.todos, action.payload);
+      state.todos[todoIdx].completed = !state.todos[todoIdx].completed;
+    },
+    deleteTodo: (state, action: PayloadAction<string>) => {
+      const todoIdx = searchTodo(state.todos, action.payload);
+      state.todos.splice(todoIdx, 1);
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(addTodo.pending, (state) => {
@@ -33,15 +47,10 @@ export const todoSlice = createSlice({
       })
       .addCase(addTodo.fulfilled, (state, action) => {
         state.status = "idle";
-        state.todos.push(action.payload);
+        state.todos.push({ ...action.payload, id: nanoid() });
       });
   },
 });
-
-export interface ITodo {
-  task: string;
-  completed: boolean;
-}
 
 export interface TodoSliceState {
   todos: ITodo[];

@@ -3,12 +3,12 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { addTodo } from "@/lib/redux";
-import { useAppDispatch } from "../hooks";
+import { useDispatch } from "../hooks";
 
 export default function Home() {
   const { push } = useRouter();
   const [todoText, setTodoText] = useState("");
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -19,8 +19,10 @@ export default function Home() {
       />
       <button
         onClick={() => {
+          if (todoText == "") return;
           dispatch(
             addTodo({
+              id: "",
               task: todoText,
               completed: false,
             })
