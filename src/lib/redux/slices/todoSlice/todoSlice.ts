@@ -7,19 +7,28 @@ const initialState: TodoSliceState = {
   status: "idle",
 };
 
+const fakeAPI = async () => {
+  return new Promise((resolve, reject) => {
+    resolve("ok");
+  });
+};
+
 export const addTodo = createAppAsyncThunk(
   "todo/addTodo",
   async (todo: ITodo, { rejectWithValue }) => {
-    const response = await fetch("/api", {
-      method: "POST",
-      body: JSON.stringify(todo),
-    });
-    const res = await response.json();
-    if (res.status === "ok") {
-      return todo;
-    } else {
-      return rejectWithValue("failed");
-    }
+    // const response = await fetch("/api", {
+    //   method: "POST",
+    //   body: JSON.stringify(todo),
+    // });
+    // const res = await response.json();
+    // if (res.status === "ok") {
+    //   return todo;
+    // } else {
+    //   return rejectWithValue("failed");
+    // }
+
+    const fakeResult = await fakeAPI();
+    return todo;
   }
 );
 
