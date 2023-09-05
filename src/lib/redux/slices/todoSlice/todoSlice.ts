@@ -10,7 +10,7 @@ const initialState: TodoSliceState = {
 export const addTodo = createAppAsyncThunk(
   "todo/addTodo",
   async (todo: ITodo, { rejectWithValue }) => {
-    const response = await fetch("http://localhost:3000/api", {
+    const response = await fetch("/api", {
       method: "POST",
       body: JSON.stringify(todo),
     });
