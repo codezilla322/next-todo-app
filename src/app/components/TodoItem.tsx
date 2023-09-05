@@ -1,26 +1,30 @@
-import { useDispatch } from "../hooks";
+import { IconButton, HStack, Text, Checkbox } from "@chakra-ui/react";
+import { AiFillDelete } from "react-icons/ai";
+
 import { todoSlice } from "@/lib/redux";
-import { TodoItemProps } from "@/types";
+import { useDispatch } from "../hooks";
+import { TodoItemProps } from "../types";
 
 export default function TodoItem({ todo }: TodoItemProps) {
   const dispatch = useDispatch();
 
   return (
-    <div>
-      <input
-        type="checkbox"
+    <HStack spacing={3} justifyContent="center">
+      <Checkbox
+        colorScheme="blue"
         onChange={(e) => {
           dispatch(todoSlice.actions.toggleTodo(todo.id));
         }}
       />
-      <span>{todo.task}</span>
-      <button
+      <Text>{todo.task}</Text>
+      <IconButton
+        size="xs"
+        aria-label="Delete"
+        icon={<AiFillDelete />}
         onClick={(e) => {
           dispatch(todoSlice.actions.deleteTodo(todo.id));
         }}
-      >
-        Delete
-      </button>
-    </div>
+      />
+    </HStack>
   );
 }
