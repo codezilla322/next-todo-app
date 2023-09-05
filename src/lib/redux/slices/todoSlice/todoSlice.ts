@@ -1,6 +1,6 @@
 import { createSlice, nanoid, type PayloadAction } from "@reduxjs/toolkit";
 import { createAppAsyncThunk } from "@/lib/redux/createAppAsyncThunk";
-import { ITodo } from "@/types";
+import { ITodo } from "@/app/types";
 
 const initialState: TodoSliceState = {
   todos: [{ id: nanoid(), task: "Initial Task", completed: false }],
@@ -10,7 +10,7 @@ const initialState: TodoSliceState = {
 export const addTodo = createAppAsyncThunk(
   "todo/addTodo",
   async (todo: ITodo, { rejectWithValue }) => {
-    const response = await fetch("http://127.0.0.1:3000/api", {
+    const response = await fetch("http://localhost:3000/api", {
       method: "POST",
       body: JSON.stringify(todo),
     });
