@@ -1,5 +1,3 @@
-"use client";
-
 import { useSelector } from "./hooks";
 import TodoList from "./components/TodoList";
 

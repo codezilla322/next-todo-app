@@ -1,3 +1,5 @@
+"use client";
+
 import { useDispatch } from "../hooks";
 import { todoSlice } from "@/lib/redux";
 import { TodoItemProps } from "@/types";

@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { addTodo } from "@/lib/redux";
 import { useDispatch } from "../hooks";
 
 export default function Home() {
-  const { push } = useRouter();
+  // const { push } = useRouter();
   const [todoText, setTodoText] = useState("");
   const dispatch = useDispatch();
 
@@ -29,7 +29,7 @@ export default function Home() {
           )
             .then((data) => {
               if (data.meta.requestStatus === "fulfilled") {
-                push("/");
+                // push("/");
               } else if (data.meta.requestStatus === "rejected") {
                 console.log(data.payload);
               }

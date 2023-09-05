@@ -48,6 +48,9 @@ export const todoSlice = createSlice({
       .addCase(addTodo.fulfilled, (state, action) => {
         state.status = "idle";
         state.todos.push({ ...action.payload, id: nanoid() });
+      })
+      .addCase(addTodo.rejected, (state) => {
+        state.status = "idle";
       });
   },
 });
